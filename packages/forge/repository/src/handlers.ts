@@ -21,6 +21,8 @@ import { mistralBlock } from "@typebot.io/mistral-block";
 import mistralBlockHandlers from "@typebot.io/mistral-block/handlers";
 import { nocodbBlock } from "@typebot.io/nocodb-block";
 import nocodbBlockHandlers from "@typebot.io/nocodb-block/handlers";
+import { nurixChatBlock } from "@typebot.io/nurix-chat-block";
+import nurixChatBlockHandlers from "@typebot.io/nurix-chat-block/handlers";
 import { openRouterBlock } from "@typebot.io/open-router-block";
 import openRouterBlockHandlers from "@typebot.io/open-router-block/handlers";
 import { openAIBlock } from "@typebot.io/openai-block";
@@ -42,6 +44,7 @@ export const forgedBlockHandlers = {
   [openAIBlock.id]: openAIBlockHandlers,
   [calComBlock.id]: calComBlockHandlers,
   [chatNodeBlock.id]: chatNodeBlockHandlers,
+  [nurixChatBlock.id]: nurixChatBlockHandlers,
   [qrCodeBlock.id]: qrCodeBlockHandlers,
   [difyAiBlock.id]: difyAiBlockHandlers,
   [mistralBlock.id]: mistralBlockHandlers,

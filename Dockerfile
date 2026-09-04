@@ -43,7 +43,8 @@ COPY --from=builder --chown=node:node /app/apps/${SCOPE}/public ./apps/${SCOPE}/
 
 
 COPY scripts/${SCOPE}-entrypoint.sh ./
-RUN chmod +x ./${SCOPE}-entrypoint.sh
+RUN sed -i 's/\r$//' ./${SCOPE}-entrypoint.sh \
+    && chmod +x ./${SCOPE}-entrypoint.sh
 USER node
 ENTRYPOINT ./${SCOPE}-entrypoint.sh
 

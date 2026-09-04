@@ -674,6 +674,9 @@
                             "$ref": "#/components/schemas/ChatNode"
                           },
                           {
+                            "$ref": "#/components/schemas/NurixChat"
+                          },
+                          {
                             "$ref": "#/components/schemas/QrCode"
                           },
                           {
@@ -2333,6 +2336,9 @@
                           },
                           {
                             "$ref": "#/components/schemas/ChatNode"
+                          },
+                          {
+                            "$ref": "#/components/schemas/NurixChat"
                           },
                           {
                             "$ref": "#/components/schemas/QrCode"
@@ -8804,6 +8810,189 @@
                   "enum": [
                     "Message",
                     "Thread ID"
+                  ],
+                  "type": "string"
+                },
+                "variableId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "NurixChat": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "outgoingEdgeId": {
+            "type": "string"
+          },
+          "type": {
+            "const": "nurix-chat"
+          },
+          "options": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "credentialsId": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "not": {}
+                  }
+                }
+              },
+              {
+                "$ref": "#/components/schemas/StartSession"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "credentialsId": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "const": "Send Message"
+                  },
+                  "sessionId": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "inputVariablesJson": {
+                    "type": "string"
+                  },
+                  "responseMapping": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "item": {
+                          "enum": [
+                            "Message",
+                            "Messages",
+                            "Message IDs",
+                            "Messages JSON",
+                            "Session ID",
+                            "Conversation ID",
+                            "Status",
+                            "Human Transfer Requested",
+                            "Request Succeeded",
+                            "HTTP Status",
+                            "Error Code",
+                            "Error Detail",
+                            "Retryable"
+                          ],
+                          "type": "string"
+                        },
+                        "variableId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "action"
+                ]
+              },
+              {
+                "$ref": "#/components/schemas/EndSession"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      },
+      "StartSession": {
+        "type": "object",
+        "properties": {
+          "credentialsId": {
+            "type": "string"
+          },
+          "action": {
+            "const": "Start Session"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "agentId": {
+            "type": "string"
+          },
+          "inputVariablesJson": {
+            "type": "string"
+          },
+          "metadataJson": {
+            "type": "string"
+          },
+          "responseMapping": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "enum": [
+                    "Session ID",
+                    "Conversation ID",
+                    "Agent ID",
+                    "Welcome Message",
+                    "Welcome Message ID",
+                    "Welcome Is Transfer",
+                    "Request Succeeded",
+                    "HTTP Status",
+                    "Error Code",
+                    "Error Detail",
+                    "Retryable"
+                  ],
+                  "type": "string"
+                },
+                "variableId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "EndSession": {
+        "type": "object",
+        "properties": {
+          "credentialsId": {
+            "type": "string"
+          },
+          "action": {
+            "const": "End Session"
+          },
+          "sessionId": {
+            "type": "string"
+          },
+          "responseMapping": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "enum": [
+                    "Closed",
+                    "Request Succeeded",
+                    "HTTP Status",
+                    "Error Code",
+                    "Error Detail",
+                    "Retryable"
                   ],
                   "type": "string"
                 },
@@ -22078,6 +22267,9 @@
                             "$ref": "#/components/schemas/ChatNode"
                           },
                           {
+                            "$ref": "#/components/schemas/NurixChat"
+                          },
+                          {
                             "$ref": "#/components/schemas/QrCode"
                           },
                           {
@@ -24375,6 +24567,9 @@
                                               },
                                               {
                                                 "$ref": "#/components/schemas/ChatNode"
+                                              },
+                                              {
+                                                "$ref": "#/components/schemas/NurixChat"
                                               },
                                               {
                                                 "$ref": "#/components/schemas/QrCode"
@@ -29546,6 +29741,9 @@
                                         "$ref": "#/components/schemas/ChatNode"
                                       },
                                       {
+                                        "$ref": "#/components/schemas/NurixChat"
+                                      },
+                                      {
                                         "$ref": "#/components/schemas/QrCode"
                                       },
                                       {
@@ -31833,6 +32031,9 @@
                                         },
                                         {
                                           "$ref": "#/components/schemas/ChatNode"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/NurixChat"
                                         },
                                         {
                                           "$ref": "#/components/schemas/QrCode"
@@ -35263,6 +35464,9 @@
                                             },
                                             {
                                               "$ref": "#/components/schemas/ChatNode"
+                                            },
+                                            {
+                                              "$ref": "#/components/schemas/NurixChat"
                                             },
                                             {
                                               "$ref": "#/components/schemas/QrCode"
@@ -39302,6 +39506,9 @@
                                             "$ref": "#/components/schemas/ChatNode"
                                           },
                                           {
+                                            "$ref": "#/components/schemas/NurixChat"
+                                          },
+                                          {
                                             "$ref": "#/components/schemas/QrCode"
                                           },
                                           {
@@ -43300,6 +43507,9 @@
                                           "$ref": "#/components/schemas/ChatNode"
                                         },
                                         {
+                                          "$ref": "#/components/schemas/NurixChat"
+                                        },
+                                        {
                                           "$ref": "#/components/schemas/QrCode"
                                         },
                                         {
@@ -47248,6 +47458,9 @@
                                                 },
                                                 {
                                                   "$ref": "#/components/schemas/ChatNode"
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/NurixChat"
                                                 },
                                                 {
                                                   "$ref": "#/components/schemas/QrCode"
@@ -51367,6 +51580,9 @@
                                             "$ref": "#/components/schemas/ChatNode"
                                           },
                                           {
+                                            "$ref": "#/components/schemas/NurixChat"
+                                          },
+                                          {
                                             "$ref": "#/components/schemas/QrCode"
                                           },
                                           {
@@ -55134,6 +55350,9 @@
                                         },
                                         {
                                           "$ref": "#/components/schemas/ChatNode"
+                                        },
+                                        {
+                                          "$ref": "#/components/schemas/NurixChat"
                                         },
                                         {
                                           "$ref": "#/components/schemas/QrCode"

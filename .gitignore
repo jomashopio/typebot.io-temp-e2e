@@ -107,3 +107,7 @@ content-collections.d.ts
 .claude/worktrees
 .nx/polygraph
 .nx/self-healing
+
+# Local integration worktrees and deployment artifacts
+/.tmp-*/
+/tmp/

@@ -10,6 +10,7 @@ import { gmailBlock } from "@typebot.io/gmail-block";
 import { groqBlock } from "@typebot.io/groq-block";
 import { mistralBlock } from "@typebot.io/mistral-block";
 import { nocodbBlock } from "@typebot.io/nocodb-block";
+import { nurixChatBlock } from "@typebot.io/nurix-chat-block";
 import { openRouterBlock } from "@typebot.io/open-router-block";
 import { openAIBlock } from "@typebot.io/openai-block";
 import { perplexityBlock } from "@typebot.io/perplexity-block";
@@ -23,6 +24,7 @@ export const forgedBlocks = {
   [openAIBlock.id]: openAIBlock,
   [calComBlock.id]: calComBlock,
   [chatNodeBlock.id]: chatNodeBlock,
+  [nurixChatBlock.id]: nurixChatBlock,
   [qrCodeBlock.id]: qrCodeBlock,
   [difyAiBlock.id]: difyAiBlock,
   [mistralBlock.id]: mistralBlock,

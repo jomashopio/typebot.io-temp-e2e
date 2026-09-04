@@ -5,6 +5,7 @@ export const forgedBlockIds = [
   "openai",
   "cal-com",
   "chat-node",
+  "nurix-chat",
   "qr-code",
   "dify-ai",
   "mistral",

@@ -19,6 +19,8 @@ import { mistralBlock } from "@typebot.io/mistral-block";
 import { mistralCredentialsSchema } from "@typebot.io/mistral-block/schemas";
 import { nocodbBlock } from "@typebot.io/nocodb-block";
 import { nocodbCredentialsSchema } from "@typebot.io/nocodb-block/schemas";
+import { nurixChatBlock } from "@typebot.io/nurix-chat-block";
+import { nurixChatCredentialsSchema } from "@typebot.io/nurix-chat-block/schemas";
 import { openRouterBlock } from "@typebot.io/open-router-block";
 import { openRouterCredentialsSchema } from "@typebot.io/open-router-block/schemas";
 import { openAIBlock } from "@typebot.io/openai-block";
@@ -37,6 +39,7 @@ import { zendeskCredentialsSchema } from "@typebot.io/zendesk-block/schemas";
 export const forgedCredentialsSchemas = {
   [openAIBlock.id]: openAICredentialsSchema,
   [chatNodeBlock.id]: chatNodeCredentialsSchema,
+  [nurixChatBlock.id]: nurixChatCredentialsSchema,
   [difyAiBlock.id]: difyAiCredentialsSchema,
   [mistralBlock.id]: mistralCredentialsSchema,
   [elevenlabsBlock.id]: elevenlabsCredentialsSchema,

@@ -21,6 +21,8 @@ import { mistralBlock } from "@typebot.io/mistral-block";
 import { mistralBlockSchema } from "@typebot.io/mistral-block/schemas";
 import { nocodbBlock } from "@typebot.io/nocodb-block";
 import { nocodbBlockSchema } from "@typebot.io/nocodb-block/schemas";
+import { nurixChatBlock } from "@typebot.io/nurix-chat-block";
+import { nurixChatBlockSchema } from "@typebot.io/nurix-chat-block/schemas";
 import { openRouterBlock } from "@typebot.io/open-router-block";
 import { openRouterBlockSchema } from "@typebot.io/open-router-block/schemas";
 import { openAIBlock } from "@typebot.io/openai-block";
@@ -43,6 +45,7 @@ export const forgedBlockSchemas = {
   [openAIBlock.id]: openAIBlockSchema,
   [calComBlock.id]: calComBlockSchema,
   [chatNodeBlock.id]: chatNodeBlockSchema,
+  [nurixChatBlock.id]: nurixChatBlockSchema,
   [qrCodeBlock.id]: qrCodeBlockSchema,
   [difyAiBlock.id]: difyAiBlockSchema,
   [mistralBlock.id]: mistralBlockSchema,
@@ -65,6 +68,7 @@ export const forgedBlockSchema = z.discriminatedUnion("type", [
   openAIBlockSchema,
   calComBlockSchema,
   chatNodeBlockSchema,
+  nurixChatBlockSchema,
   qrCodeBlockSchema,
   difyAiBlockSchema,
   mistralBlockSchema,

@@ -56,6 +56,9 @@
       "path": "../blocks/qrcode/tsconfig.lib.json"
     },
     {
+      "path": "../blocks/nurixChat/tsconfig.lib.json"
+    },
+    {
       "path": "../blocks/chatNode/tsconfig.lib.json"
     },
     {

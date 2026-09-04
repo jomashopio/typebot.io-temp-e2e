@@ -101,6 +101,8 @@
 !packages/forge/blocks/mistral/**
 !packages/forge/blocks/nocodb
 !packages/forge/blocks/nocodb/**
+!packages/forge/blocks/nurixChat
+!packages/forge/blocks/nurixChat/**
 !packages/forge/blocks/openai
 !packages/forge/blocks/openai/**
 !packages/forge/blocks/openRouter
