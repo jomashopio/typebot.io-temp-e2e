@@ -44,8 +44,15 @@ deployment.
 - `HUMAN_TRANSFERRED`: stop sending turns to Nurix.
 - `ROUTED_TO_JOURNEY`: render nothing; the journey responds through its own
   channel.
-- `Human Transfer Requested = true`: render any messages first, then stop
-  sending turns and route the user to the configured support flow.
+- `Is Transfer = true`: at least one message returned by the current Send
+  response has `is_transfer = true`. Use this immediate-turn signal to route
+  the visitor to the handoff flow after rendering the returned messages.
+- `Human Transfer Requested`: maps the separate top-level
+  `human_transfer_requested` field so the workflow can evaluate it independently
+  from the current messages.
+
+`Messages JSON` retains the individual `isTransfer` value for every returned
+message when a workflow needs per-message detail.
 
 The `Request Succeeded`, `HTTP Status`, `Error Code`, `Error Detail`, and
 `Retryable` mappings are available for explicit failure branches. The block

@@ -56,6 +56,7 @@ describe("Nurix Chat handler utilities", () => {
         { item: "Messages", variableId: "messages" },
         { item: "Message IDs", variableId: "message-ids" },
         { item: "Messages JSON", variableId: "messages-json" },
+        { item: "Is Transfer", variableId: "is-transfer" },
         { variableId: "default-message" },
         { item: "Unknown", variableId: "unknown" },
         { item: "Message" },
@@ -67,6 +68,7 @@ describe("Nurix Chat handler utilities", () => {
         "Message IDs": ["11", "12"],
         "Messages JSON":
           '[{"content":"Transfer requested","messageId":"11","isTransfer":true},{"content":"Specialist ready","messageId":"12","isTransfer":false}]',
+        "Is Transfer": true,
       },
       variables: variableStore.store,
     });
@@ -83,6 +85,7 @@ describe("Nurix Chat handler utilities", () => {
         value:
           '[{"content":"Transfer requested","messageId":"11","isTransfer":true},{"content":"Specialist ready","messageId":"12","isTransfer":false}]',
       },
+      { id: "is-transfer", value: true },
       {
         id: "default-message",
         value: "Transfer requested\n\nSpecialist ready",
@@ -106,6 +109,7 @@ describe("Nurix Chat handler utilities", () => {
       responseMapping: [
         { item: "Message", variableId: "message" },
         { item: "Messages", variableId: "messages" },
+        { item: "Is Transfer", variableId: "is-transfer" },
         { item: "Conversation ID", variableId: "conversation" },
         { item: "Request Succeeded", variableId: "succeeded" },
         { item: "HTTP Status", variableId: "http-status" },
@@ -114,7 +118,12 @@ describe("Nurix Chat handler utilities", () => {
         { item: "Retryable", variableId: "retryable" },
       ],
       defaultItem: "Message",
-      successOutputNames: ["Message", "Messages", "Conversation ID"],
+      successOutputNames: [
+        "Message",
+        "Messages",
+        "Is Transfer",
+        "Conversation ID",
+      ],
       variables: variableStore.store,
       logs: logsStore.store,
     });
@@ -122,6 +131,7 @@ describe("Nurix Chat handler utilities", () => {
     expect(variableStore.updates).toEqual([
       { id: "message", value: null },
       { id: "messages", value: null },
+      { id: "is-transfer", value: null },
       { id: "conversation", value: null },
       { id: "succeeded", value: false },
       { id: "http-status", value: 404 },

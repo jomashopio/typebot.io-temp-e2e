@@ -40,6 +40,9 @@ export const sendMessageHandler = createActionHandler(sendMessage, {
             (responseMessage) => responseMessage.messageId,
           ),
           "Messages JSON": JSON.stringify(response.messages),
+          "Is Transfer": response.messages.some(
+            (responseMessage) => responseMessage.isTransfer,
+          ),
           "Session ID": response.sessionId,
           "Conversation ID": response.conversationId,
           Status: response.status,
@@ -63,6 +66,7 @@ export const sendMessageHandler = createActionHandler(sendMessage, {
           "Messages",
           "Message IDs",
           "Messages JSON",
+          "Is Transfer",
           "Status",
           "Human Transfer Requested",
         ],

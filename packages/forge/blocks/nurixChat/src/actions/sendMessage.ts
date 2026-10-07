@@ -40,6 +40,7 @@ export const sendMessage = createAction({
         "Messages",
         "Message IDs",
         "Messages JSON",
+        "Is Transfer",
         "Session ID",
         "Conversation ID",
         "Status",
