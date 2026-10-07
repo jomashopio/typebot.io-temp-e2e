@@ -25,6 +25,9 @@ export const sendMessageHandler = createActionHandler(sendMessage, {
         message,
         ...(inputVariables === undefined ? {} : { inputVariables }),
       });
+      const isTransfer = response.messages.some(
+        (responseMessage) => responseMessage.isTransfer,
+      );
 
       setMappedVariables({
         responseMapping: options.responseMapping,
@@ -40,13 +43,12 @@ export const sendMessageHandler = createActionHandler(sendMessage, {
             (responseMessage) => responseMessage.messageId,
           ),
           "Messages JSON": JSON.stringify(response.messages),
-          "Is Transfer": response.messages.some(
-            (responseMessage) => responseMessage.isTransfer,
-          ),
+          "Is Transfer": isTransfer,
           "Session ID": response.sessionId,
           "Conversation ID": response.conversationId,
           Status: response.status,
-          "Human Transfer Requested": response.humanTransferRequested,
+          "Human Transfer Requested":
+            response.humanTransferRequested || isTransfer,
           "Request Succeeded": true,
           "HTTP Status": 200,
           "Error Code": null,

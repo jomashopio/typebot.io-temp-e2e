@@ -84,8 +84,8 @@ const sendNurixChatMessageEffect = Effect.fn("sendNurixChatMessage")(function* (
     messages: response.data.messages.map((message) => ({
       content: message.content,
       messageId: String(message.message_id),
-      isTransfer: message.is_transfer,
+      isTransfer: message.is_transfer ?? false,
     })),
-    humanTransferRequested: response.data.human_transfer_requested,
+    humanTransferRequested: response.data.human_transfer_requested ?? false,
   };
 });

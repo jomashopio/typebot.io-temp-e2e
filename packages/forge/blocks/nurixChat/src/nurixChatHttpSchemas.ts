@@ -32,10 +32,19 @@ export const endNurixSessionInputSchema = Schema.Struct({
   sessionId: Schema.NonEmptyString,
 });
 
-const messageSchema = Schema.Struct({
+const messageFields = {
   content: Schema.String,
   message_id: identifierSchema,
+};
+
+const welcomeMessageSchema = Schema.Struct({
+  ...messageFields,
   is_transfer: Schema.Boolean,
+});
+
+const sendMessageSchema = Schema.Struct({
+  ...messageFields,
+  is_transfer: Schema.optionalKey(Schema.Boolean),
 });
 
 const successEnvelopeFields = {
@@ -50,7 +59,7 @@ export const startNurixSessionResponseSchema = Schema.Struct({
     session_id: identifierSchema,
     conversation_id: identifierSchema,
     agent_id: identifierSchema,
-    welcome_message: Schema.NullOr(messageSchema),
+    welcome_message: Schema.NullOr(welcomeMessageSchema),
   }),
 });
 
@@ -65,8 +74,8 @@ export const sendNurixChatMessageResponseSchema = Schema.Struct({
       "HUMAN_TRANSFERRED",
       "ROUTED_TO_JOURNEY",
     ]),
-    messages: Schema.Array(messageSchema),
-    human_transfer_requested: Schema.Boolean,
+    messages: Schema.Array(sendMessageSchema),
+    human_transfer_requested: Schema.optionalKey(Schema.Boolean),
   }),
 });
 

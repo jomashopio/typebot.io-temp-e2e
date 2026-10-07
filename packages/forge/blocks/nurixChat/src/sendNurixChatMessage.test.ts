@@ -247,6 +247,53 @@ describe("Nurix HTTP Chat API", () => {
         ),
       ).resolves.toMatchObject({ status, messages: [] });
     });
+
+    it("rejects non-boolean transfer fields when they are present", async () => {
+      for (const data of [
+        {
+          session_id: "session-1",
+          conversation_id: "conversation-1",
+          status: "COMPLETED",
+          messages: [
+            {
+              content: "Specialist ready",
+              message_id: "message-1",
+              is_transfer: "true",
+            },
+          ],
+          human_transfer_requested: false,
+        },
+        {
+          session_id: "session-1",
+          conversation_id: "conversation-1",
+          status: "COMPLETED",
+          messages: [
+            {
+              content: "Specialist ready",
+              message_id: "message-1",
+              is_transfer: false,
+            },
+          ],
+          human_transfer_requested: "true",
+        },
+      ]) {
+        const error = await captureNurixError(
+          sendNurixChatMessage(
+            {
+              ...connectionInput,
+              sessionId: "session-1",
+              message: "Hello",
+            },
+            {
+              fetcher: async () => jsonResponse(successEnvelope(data)),
+              validateUrl: allowTestHost,
+            },
+          ),
+        );
+
+        expect(error.code).toBe("INVALID_RESPONSE");
+      }
+    });
   });
 
   describe("End Session", () => {
