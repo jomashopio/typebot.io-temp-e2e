@@ -51,6 +51,9 @@ const endNurixSessionEffect = Effect.fn("endNurixSession")(function* (
     {
       url: endpoint.url,
       apiKey: input.apiKey,
+      ...(input.dataApiKey === undefined
+        ? {}
+        : { dataApiKey: input.dataApiKey }),
       origin: endpoint.origin,
       method: "DELETE",
       expectedStatus: 200,

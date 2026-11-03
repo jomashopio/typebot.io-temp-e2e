@@ -30,12 +30,19 @@ Create one encrypted **Nurix Chat account** credential containing:
 
 - the Nurix API key;
 - the regional HTTPS base URL;
+- the optional `data-api-key`, when supplied by Nurix;
 - the account ID;
 - the configured channel name, normally `CHAT_WIDGET`; and
 - the exact HTTPS Origin allowlisted by Nurix.
 
 The current server integration requires CAPTCHA to be disabled for the Nurix
 deployment.
+
+For the Nuplay deployment, use `https://api.nuplay.live/agentx/v2/` as the base
+URL. The block builds `/agentx/v2/chat/{channel}/{account}/session` beneath that
+host and sends both `X-Api-Key` and the optional `data-api-key` on all session
+operations. Nurix `nurixlabs.tech` origins continue to use `/v2/chat/...`.
+Do not enter the full session URL in the Base URL field.
 
 ## Response handling
 
@@ -66,7 +73,7 @@ error retry to one attempt.
 ## Runtime safeguards
 
 - 35-second total request deadline;
-- HTTPS-only, Nurix-owned API hosts;
+- HTTPS-only, Nurix-owned API hosts, including the exact `api.nuplay.live` host;
 - no redirect following;
 - path-segment encoding for account, channel, and session identifiers;
 - 64 KiB response limit;

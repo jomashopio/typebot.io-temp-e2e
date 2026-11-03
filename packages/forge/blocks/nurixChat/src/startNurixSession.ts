@@ -58,6 +58,9 @@ const startNurixSessionEffect = Effect.fn("startNurixSession")(function* (
     {
       url: endpoint.url,
       apiKey: input.apiKey,
+      ...(input.dataApiKey === undefined
+        ? {}
+        : { dataApiKey: input.dataApiKey }),
       origin: endpoint.origin,
       method: "POST",
       expectedStatus: 201,

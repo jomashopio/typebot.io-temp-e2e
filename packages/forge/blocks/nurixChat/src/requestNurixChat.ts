@@ -13,6 +13,7 @@ import {
 type Props = {
   readonly url: URL;
   readonly apiKey: string;
+  readonly dataApiKey?: string;
   readonly origin: string;
   readonly method: "POST" | "DELETE";
   readonly expectedStatus: 200 | 201;
@@ -270,6 +271,8 @@ const createHeaders = (props: Props, hasBody: boolean) => {
     "X-Api-Key": props.apiKey,
   });
   if (hasBody) headers.set("Content-Type", "application/json");
+  if (props.dataApiKey !== undefined)
+    headers.set("data-api-key", props.dataApiKey);
   return headers;
 };
 

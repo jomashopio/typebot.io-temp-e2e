@@ -15,12 +15,22 @@ export const auth = createAuth({
         isDebounceDisabled: true,
       },
     }),
+    dataApiKey: option.string.meta({
+      layout: {
+        label: "Data API key",
+        helperText:
+          "Enter the data-api-key supplied by Nurix Labs if your deployment requires it.",
+        inputType: "password",
+        withVariableButton: false,
+        isDebounceDisabled: true,
+      },
+    }),
     baseUrl: option.string.meta({
       layout: {
         label: "Base URL",
         isRequired: true,
         helperText:
-          "Enter the HTTPS nurixlabs.tech API origin supplied by Nurix Labs.",
+          "Enter the HTTPS nurixlabs.tech API origin or https://api.nuplay.live/agentx/v2/ supplied by Nurix Labs.",
         placeholder: "https://chat-us.nurixlabs.tech",
         withVariableButton: false,
         isDebounceDisabled: true,

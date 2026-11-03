@@ -4,6 +4,7 @@ import { NurixChatError } from "../types";
 
 type ConnectionCredentials = {
   readonly apiKey?: string;
+  readonly dataApiKey?: string;
   readonly baseUrl?: string;
   readonly accountId?: string;
   readonly channelName?: string;
@@ -22,16 +23,20 @@ const jsonObjectFromStringSchema = Schema.fromJsonString(
 
 export const parseConnectionCredentials = (
   credentials: ConnectionCredentials,
-) => ({
-  apiKey: parseRequiredString(credentials.apiKey, "API key"),
-  baseUrl: parseRequiredString(credentials.baseUrl, "Base URL"),
-  accountId: parseRequiredString(credentials.accountId, "Account ID"),
-  channelName: parseRequiredString(
-    credentials.channelName?.trim() || "CHAT_WIDGET",
-    "Channel name",
-  ),
-  origin: parseRequiredString(credentials.origin, "Origin"),
-});
+) => {
+  const dataApiKey = parseOptionalString(credentials.dataApiKey);
+  return {
+    apiKey: parseRequiredString(credentials.apiKey, "API key"),
+    ...(dataApiKey === undefined ? {} : { dataApiKey }),
+    baseUrl: parseRequiredString(credentials.baseUrl, "Base URL"),
+    accountId: parseRequiredString(credentials.accountId, "Account ID"),
+    channelName: parseRequiredString(
+      credentials.channelName?.trim() || "CHAT_WIDGET",
+      "Channel name",
+    ),
+    origin: parseRequiredString(credentials.origin, "Origin"),
+  };
+};
 
 export const parseRequiredString = (
   value: string | undefined,

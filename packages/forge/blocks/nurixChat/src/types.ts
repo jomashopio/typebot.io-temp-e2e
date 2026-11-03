@@ -46,6 +46,7 @@ export type NurixChatRuntimeOptions = {
 
 type NurixChatConnectionInput = {
   readonly apiKey: string;
+  readonly dataApiKey?: string;
   readonly baseUrl: string;
   readonly accountId: string;
   readonly channelName: string;

@@ -6,6 +6,7 @@ const requiredTextSchema = Schema.String.check(Schema.isPattern(/\S/));
 
 const connectionFields = {
   apiKey: Schema.NonEmptyString,
+  dataApiKey: Schema.optionalKey(Schema.NonEmptyString),
   baseUrl: Schema.NonEmptyString,
   accountId: Schema.NonEmptyString,
   channelName: Schema.NonEmptyString,

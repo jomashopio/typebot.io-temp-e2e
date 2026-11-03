@@ -19,7 +19,7 @@ export const buildNurixChatUrl = (
   validateBaseUrlShape(baseUrl);
   validateAllowedHost(baseUrl, runtimeOptions.validateUrl);
 
-  const sessionPath = `${nurixChatApiPath}/${encodePathSegment(props.channelName)}/${encodePathSegment(props.accountId)}/session`;
+  const sessionPath = `${baseUrl.hostname === "api.nuplay.live" ? "/agentx/v2/chat" : nurixChatApiPath}/${encodePathSegment(props.channelName)}/${encodePathSegment(props.accountId)}/session`;
   const pathname =
     props.operation === "start"
       ? sessionPath
@@ -68,7 +68,6 @@ const validateBaseUrlShape = (baseUrl: URL) => {
     baseUrl.username !== "" ||
     baseUrl.password !== "" ||
     baseUrl.port !== "" ||
-    baseUrl.pathname !== "/" ||
     baseUrl.search !== "" ||
     baseUrl.hash !== ""
   )
@@ -77,7 +76,22 @@ const validateBaseUrlShape = (baseUrl: URL) => {
       httpStatus: null,
       retryable: false,
       detail:
-        "Nurix Chat base URL must be an HTTPS origin using the default port.",
+        "Nurix Chat base URL must use HTTPS and the default port, without credentials, query parameters, or fragments.",
+    });
+
+  if (
+    baseUrl.pathname !== "/" &&
+    !(
+      baseUrl.hostname === "api.nuplay.live" &&
+      (baseUrl.pathname === "/agentx/v2" || baseUrl.pathname === "/agentx/v2/")
+    )
+  )
+    throw new NurixChatError({
+      code: "UNSAFE_URL",
+      httpStatus: null,
+      retryable: false,
+      detail:
+        "Nurix Chat base URL must be a Nurix API origin or https://api.nuplay.live/agentx/v2/.",
     });
 };
 
@@ -103,7 +117,11 @@ const validateAllowedHost = (
 
 const isNurixOwnedHost = (url: URL) => {
   const hostname = url.hostname.toLowerCase();
-  return hostname === "nurixlabs.tech" || hostname.endsWith(".nurixlabs.tech");
+  return (
+    hostname === "nurixlabs.tech" ||
+    hostname.endsWith(".nurixlabs.tech") ||
+    hostname === "api.nuplay.live"
+  );
 };
 
 const encodePathSegment = (value: string) => {

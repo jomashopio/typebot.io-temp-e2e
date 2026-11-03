@@ -26,6 +26,25 @@ describe("Nurix Chat handler utilities", () => {
     });
   });
 
+  it("trims the optional data API key and omits it when blank", () => {
+    const credentials = {
+      apiKey: "test-api-key",
+      baseUrl: "https://api.nuplay.live/agentx/v2/",
+      accountId: "account-1",
+      origin: "https://www.jomashop.com",
+    };
+
+    expect(
+      parseConnectionCredentials({
+        ...credentials,
+        dataApiKey: " data-api-key-sentinel ",
+      }),
+    ).toMatchObject({ dataApiKey: "data-api-key-sentinel" });
+    expect(
+      parseConnectionCredentials({ ...credentials, dataApiKey: "   " }),
+    ).not.toHaveProperty("dataApiKey");
+  });
+
   it("parses only JSON objects for optional request context", () => {
     expect(
       parseOptionalJsonObject(

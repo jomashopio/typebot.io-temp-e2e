@@ -81,6 +81,7 @@ describe("Nurix HTTP Chat API", () => {
       expect(headers.get("Content-Type")).toBe("application/json");
       expect(headers.has("Authorization")).toBe(false);
       expect(headers.has("X-Captcha-Token")).toBe(false);
+      expect(headers.has("data-api-key")).toBe(false);
       expect(call.input.toString()).not.toContain(connectionInput.apiKey);
     });
 
@@ -140,6 +141,64 @@ describe("Nurix HTTP Chat API", () => {
         "https://chat-us.nurixlabs.tech/v2/chat/CHAT%20WIDGET/account%2Fone/session",
       );
     });
+  });
+
+  it("uses the supplied Nuplay endpoint and both keys throughout a session", async () => {
+    const { calls, fetcher } = createRecordingFetcher((url, init) =>
+      init?.method === "DELETE"
+        ? jsonResponse(successEnvelope({ closed: true }))
+        : url.toString().endsWith("/message")
+          ? jsonResponse(
+              successEnvelope({
+                session_id: "session/one",
+                conversation_id: "conversation-1",
+                status: "COMPLETED",
+                messages: [],
+              }),
+            )
+          : jsonResponse(
+              successEnvelope({
+                session_id: "session/one",
+                conversation_id: "conversation-1",
+                agent_id: "agent-1",
+                welcome_message: null,
+              }),
+              201,
+            ),
+    );
+    const nuplayConnection = {
+      ...connectionInput,
+      baseUrl: "https://api.nuplay.live/agentx/v2/",
+      dataApiKey: "data-api-key-sentinel",
+    };
+
+    const session = await startNurixSession(
+      { ...nuplayConnection, userId: "customer-42" },
+      { fetcher },
+    );
+    await sendNurixChatMessage(
+      { ...nuplayConnection, sessionId: session.sessionId, message: "Hello" },
+      { fetcher },
+    );
+    await expect(
+      endNurixSession(
+        { ...nuplayConnection, sessionId: session.sessionId },
+        { fetcher },
+      ),
+    ).resolves.toEqual({ closed: true });
+
+    expect(calls.map((call) => call.input.toString())).toEqual([
+      "https://api.nuplay.live/agentx/v2/chat/CHAT%20WIDGET/account%2Fone/session",
+      "https://api.nuplay.live/agentx/v2/chat/CHAT%20WIDGET/account%2Fone/session/session%2Fone/message",
+      "https://api.nuplay.live/agentx/v2/chat/CHAT%20WIDGET/account%2Fone/session/session%2Fone",
+    ]);
+    for (const call of calls) {
+      const headers = new Headers(call.init?.headers);
+      expect(headers.get("X-Api-Key")).toBe(connectionInput.apiKey);
+      expect(headers.get("data-api-key")).toBe(nuplayConnection.dataApiKey);
+      expect(headers.get("Origin")).toBe("https://www.jomashop.test");
+      expect(call.init?.redirect).toBe("manual");
+    }
   });
 
   describe("Send Message", () => {

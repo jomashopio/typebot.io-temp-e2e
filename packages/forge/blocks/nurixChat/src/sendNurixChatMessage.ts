@@ -56,6 +56,9 @@ const sendNurixChatMessageEffect = Effect.fn("sendNurixChatMessage")(function* (
     {
       url: endpoint.url,
       apiKey: input.apiKey,
+      ...(input.dataApiKey === undefined
+        ? {}
+        : { dataApiKey: input.dataApiKey }),
       origin: endpoint.origin,
       method: "POST",
       expectedStatus: 200,
