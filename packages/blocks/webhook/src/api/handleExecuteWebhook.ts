@@ -7,10 +7,11 @@ import { byId } from "@typebot.io/lib/utils";
 import prisma from "@typebot.io/prisma";
 import type { Prisma } from "@typebot.io/prisma/types";
 import { isTypebotVersionAtLeastV6 } from "@typebot.io/schemas/helpers/isTypebotVersionAtLeastV6";
-import { isReadTypebotForbidden } from "@typebot.io/typebot/helpers/isReadTypebotForbidden";
+import { getTypebotAccessRight } from "@typebot.io/typebot/helpers/getTypebotAccessRight";
 import { resumeWhatsAppFlow } from "@typebot.io/whatsapp/resumeWhatsAppFlow";
-import PartySocket from "partysocket";
 import { z } from "zod";
+import { publishWebhook } from "./publishWebhook";
+import { signWhatsAppWebhookResponse } from "./signWhatsAppWebhookResponse";
 
 export const executeWebhookInputSchema = z.object({
   params: z.object({
@@ -45,7 +46,6 @@ export const handleExecuteWebhook = async ({
     select: {
       version: true,
       groups: true,
-      settings: true,
       whatsAppCredentialsId: true,
       workspace: {
         select: {
@@ -65,12 +65,19 @@ export const handleExecuteWebhook = async ({
         where: { userId: user.id },
         select: {
           userId: true,
+          type: true,
         },
       },
     },
   });
 
-  if (!typebot || (await isReadTypebotForbidden(typebot, user)))
+  // Resuming a flow requires write access, independently of public sharing.
+  if (
+    !typebot ||
+    typebot.workspace.isSuspended ||
+    typebot.workspace.isPastDue ||
+    getTypebotAccessRight(user, typebot) !== "write"
+  )
     throw new ORPCError("NOT_FOUND", {
       message: "Typebot not found",
     });
@@ -108,7 +115,18 @@ export const handleExecuteWebhook = async ({
 
   const chatSession = await getSession(result.lastChatSessionId);
 
-  if (chatSession?.state?.whatsApp) {
+  if (
+    !chatSession?.state ||
+    chatSession.state.typebotsQueue[0]?.typebot.id !== typebotId ||
+    chatSession.state.typebotsQueue[0]?.resultId !== resultId ||
+    chatSession.state.currentBlockId !== blockId ||
+    !chatSession.state.pendingWebhook ||
+    chatSession.state.pendingWebhook.blockId !== blockId ||
+    chatSession.state.pendingWebhook.expiresAt <= Date.now()
+  )
+    throw new ORPCError("BAD_REQUEST", { message: "No matching webhook wait" });
+
+  if (chatSession.state.whatsApp) {
     if (!typebot.whatsAppCredentialsId)
       throw new ORPCError("INTERNAL_SERVER_ERROR", {
         message: "Found WA session but no credentialsId in typebot",
@@ -128,7 +146,7 @@ export const handleExecuteWebhook = async ({
           timestamp: new Date().toISOString(),
           type: "webhook",
           webhook: {
-            data: parseBodyForWhatsApp(body),
+            data: await signWhatsAppWebhookResponse(chatSession.state, body),
           },
         },
       ],
@@ -141,32 +159,11 @@ export const handleExecuteWebhook = async ({
     return { message: "OK" };
   }
 
-  try {
-    await PartySocket.fetch(
-      { host: env.NEXT_PUBLIC_PARTYKIT_HOST, room: `${resultId}/webhooks` },
-      {
-        method: "POST",
-        body: parseBody(body),
-      },
-    );
-  } catch (error) {
-    console.error("PartySocket.fetch error:", error);
-    throw new ORPCError("INTERNAL_SERVER_ERROR", {
-      message: "PartySocket.fetch error",
-    });
-  }
-
+  await publishWebhook(
+    chatSession.state.pendingWebhook.room,
+    blockId,
+    body,
+    chatSession.state.pendingWebhook.nonce,
+  );
   return { message: "OK" };
-};
-
-const parseBodyForWhatsApp = (body: unknown): string | undefined => {
-  if (!body) return;
-  return typeof body === "string"
-    ? JSON.stringify({ data: JSON.parse(body) })
-    : JSON.stringify({ data: body }, null, 2);
-};
-
-const parseBody = (body: unknown): string | undefined => {
-  if (!body) return;
-  return typeof body === "string" ? body : JSON.stringify(body, null, 2);
 };

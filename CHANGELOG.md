@@ -1,5 +1,83 @@
 # Changelog
 
+<a name="3.19.1"></a>
+## 3.19.1 (2026-10-20)
+
+### New features
+
+- 👌 Add a Send Chat Message action to the Blink block. New Blink credentials use App Identities; existing legacy credentials keep working with Get Users and Send Feed Event.
+- 👌 Allow multi-line placeholders on long Text inputs.
+- 👌 Load Custom OAuth profiles from the OIDC UserInfo endpoint when `CUSTOM_OAUTH_USE_USERINFO` is `true`.
+
+### Fixed
+
+- 🐛 Keep integers above `Number.MAX_SAFE_INTEGER` as strings when guessing variable types.
+- 🐛 Use the right typebot ID in WhatsApp media URLs of the first message.
+- 🐛 Allow creating several WhatsApp credentials in the same builder session.
+- 🐛 Keep large results exports running in the background.
+- 🐛 Keep the daily cleanup below transaction timeouts.
+- 🐛 Truncate long share links instead of overlapping the Copy button.
+
+### Security
+
+- 🐛 Extend the WhatsApp session restriction to file uploads and restrict WhatsApp credential details to workspace members.
+
+### Maintenance
+
+- 🔧 Deploy the webhook relay with PartyServer and Wrangler, since `partykit deploy` stops working on 2026-10-23. Running relays are unaffected; to redeploy one, follow the [PartyKit configuration](https://docs.typebot.io/self-hosting/configuration#partykit).
+- 🔧 Slim the production Builder and Viewer Docker images.
+- 🔧 Upgrade TanStack Start, Zod and oRPC.
+
+<a name="3.19.0"></a>
+## 3.19.0 (2026-09-14)
+
+### Breaking changes
+
+#### Webhook signing secret and coordinated upgrade
+
+If you use Webhook blocks, you must now set `WEBHOOK_RELAY_SECRET` to the **same secret in builder, viewer and your PartyKit server**. This also applies to Webhook blocks used in previews and WhatsApp flows. Missing or mismatched secrets prevent Webhook responses from resuming conversations.
+
+Generate an independent secret from at least 32 random bytes (for example, `openssl rand -hex 32`). Keep it server-side: do not prefix it with `NEXT_PUBLIC_` or reuse `ENCRYPTION_SECRET`. Keep `NEXT_PUBLIC_PARTYKIT_HOST` configured as before. See [configuration](https://docs.typebot.io/self-hosting/configuration#partykit).
+
+Plan a maintenance window for this protocol change:
+
+1. Provision the shared secret on builder, viewer and PartyKit.
+2. Deploy the updated PartyKit worker and stop the old relay, including its existing connections.
+3. Upgrade builder and viewer together, along with the updated JS/React embeds. Update any separately hosted or pinned embeds before resuming Webhook traffic.
+4. Refresh open tabs and restart conversations waiting on a Webhook created before the upgrade. Confirm that an authorized callback resumes a new conversation.
+
+Older publishers and listeners are incompatible with the new relay. Existing authenticated callback URLs and JSON-object request bodies remain unchanged; non-object callback bodies are now rejected. Explicitly client-executed HTTP Request blocks keep their existing contract. If no matching listener is connected, the callback returns HTTP 502; retry the authenticated callback after the client reconnects.
+
+Webhook waits now expire with the configured session timeout, or after 24 hours if no timeout is set. The builder settings listener expires after 15 minutes and can be restarted. Expired waits require a new conversation. Rotating the secret also invalidates outstanding waits and subscriptions.
+
+#### Separate viewer hostname for previews
+
+The first URL in `NEXT_PUBLIC_VIEWER_URL` must use a different hostname from `NEXTAUTH_URL`. Different ports on the same hostname are insufficient. Configure a separate viewer hostname before upgrading so builder previews remain available.
+
+#### SMTP configuration tests
+
+SMTP configuration tests now validate destinations and pin the connection to a validated IP address. Private SMTP servers require an exact hostname entry in `SSRF_ALLOWED_HOSTS`; this instance-wide allowlist permits RFC1918 addresses only. Loopback, link-local and metadata endpoints remain blocked.
+
+### Fixed
+
+- 🐛 Resolve variables in Forge option arrays.
+
+### Security
+
+- 🐛 Strengthen preview isolation, linked draft permissions and preview session creation.
+- 🐛 Restrict WhatsApp sessions to internal runtime access.
+- 🐛 Authenticate webhook responses and relay subscriptions, and enforce webhook ownership and write access.
+- 🐛 Protect SMTP configuration tests and special-use IP ranges against SSRF.
+- 🐛 Block external sign-in redirects and serialize concurrent email verification attempts.
+- 🐛 Restrict guest workspace access and prevent writes during read-only typebot migrations.
+- 🐛 Prevent public ID validation backtracking and upgrade security-sensitive dependencies.
+
+### Maintenance
+
+- 🔧 Move Docker images to Debian Bookworm after Bullseye reached end of support.
+- 🔧 Add enterprise chat tier billing support.
+- 🔧 Replace inactive cleanup with a retention audit.
+
 <a name="3.18.0"></a>
 ## 3.18.0 (2026-08-21)
 

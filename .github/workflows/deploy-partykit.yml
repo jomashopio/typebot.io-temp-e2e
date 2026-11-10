@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - "packages/partykit/**"
+      - "packages/lib/src/signWebhookToken.ts"
+      - "packages/lib/src/verifyWebhookToken.ts"
+      - ".github/workflows/deploy-partykit.yml"
 
 permissions:
   contents: read
@@ -16,7 +19,7 @@ jobs:
       DATABASE_URL: "${{ secrets.DATABASE_URL }}"
       ENCRYPTION_SECRET: "${{ secrets.ENCRYPTION_SECRET }}"
       NEXTAUTH_URL: "http://localhost:3000"
-      NEXT_PUBLIC_VIEWER_URL: "http://localhost:3001"
+      NEXT_PUBLIC_VIEWER_URL: "http://127.0.0.1:3001"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,10 +32,8 @@ jobs:
         with:
           bun-version-file: "package.json"
       - run: bun install
-      - run: bunx nx deploy @typebot.io/partykit -- --domain ${PARTYKIT_DOMAIN}
+      - run: bunx nx deploy @typebot.io/partykit -- --env partykit --domain ${PARTYKIT_DOMAIN}
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN  }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           PARTYKIT_DOMAIN: ${{ secrets.PARTYKIT_DOMAIN }}
-          PARTYKIT_LOGIN: ${{ secrets.PARTYKIT_LOGIN  }}
-          PARTYKIT_TOKEN: ${{ secrets.PARTYKIT_TOKEN }}

@@ -124,6 +124,7 @@ const baseEnv = {
     ),
   },
   client: {
+    NEXT_PUBLIC_BUILDER_ORIGIN: z.string().url().optional(),
     NEXT_PUBLIC_VIEWER_URL: z.preprocess(
       guessViewerUrlForVercelPreview,
       z
@@ -141,6 +142,9 @@ const baseEnv = {
       .default("The bot you're looking for doesn't exist"),
   },
   runtimeEnv: {
+    NEXT_PUBLIC_BUILDER_ORIGIN: getRuntimeVariable(
+      "NEXT_PUBLIC_BUILDER_ORIGIN",
+    ),
     NEXT_PUBLIC_VIEWER_URL: getRuntimeVariable("NEXT_PUBLIC_VIEWER_URL"),
     NEXT_PUBLIC_ONBOARDING_TYPEBOT_ID: getRuntimeVariable(
       "NEXT_PUBLIC_ONBOARDING_TYPEBOT_ID",
@@ -229,6 +233,7 @@ const customOAuthEnv = {
       .default("openid profile email"),
     CUSTOM_OAUTH_CLIENT_ID: z.string().min(1).optional(),
     CUSTOM_OAUTH_CLIENT_SECRET: z.string().min(1).optional(),
+    CUSTOM_OAUTH_USE_USERINFO: boolean.optional().default(false),
     CUSTOM_OAUTH_WELL_KNOWN_URL: z.string().url().optional(),
     CUSTOM_OAUTH_USER_ID_PATH: z.string().min(1).optional().default("id"),
     CUSTOM_OAUTH_USER_EMAIL_PATH: z.string().min(1).optional().default("email"),
@@ -463,6 +468,9 @@ const keycloakEnv = {
 };
 
 const partykitEnv = {
+  server: {
+    WEBHOOK_RELAY_SECRET: z.string().min(32).optional(),
+  },
   client: {
     NEXT_PUBLIC_PARTYKIT_HOST: z.string().min(1).optional(),
   },
@@ -529,6 +537,7 @@ export const env = createEnv({
     ...posthogEnv.server,
     ...inngestEnv.server,
     ...otelEnv.server,
+    ...partykitEnv.server,
   },
   client: {
     ...baseEnv.client,

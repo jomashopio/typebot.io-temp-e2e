@@ -130,6 +130,8 @@ export const startSession = async ({
   let initialState: SessionState = {
     version: "3",
     workspaceId: typebot.workspaceId,
+    previewUserId:
+      startParams.type === "preview" ? startParams.userId : undefined,
     publicTypebotId: typebot.publicTypebotId,
     typebotsQueue: [
       {
@@ -164,6 +166,10 @@ export const startSession = async ({
       },
     ],
     dynamicTheme: parseDynamicThemeInState(typebot.theme),
+    webhookRoom:
+      startParams.type === "preview" && startParams.userId
+        ? `${startParams.userId}/${typebot.id}/webhooks`
+        : undefined,
     isStreamEnabled: startParams.isStreamEnabled,
     typingEmulation: typebot.settings.typingEmulation,
     allowedOrigins:

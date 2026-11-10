@@ -4819,10 +4819,6 @@
               "isExecutedOnClient": {
                 "type": "boolean"
               },
-              "isUnsafe": {
-                "type": "boolean",
-                "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-              },
               "shouldExecuteInParentContext": {
                 "type": "boolean"
               }
@@ -4892,10 +4888,6 @@
                   "isExecutedOnClient": {
                     "type": "boolean"
                   },
-                  "isUnsafe": {
-                    "type": "boolean",
-                    "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-                  },
                   "expressionToEvaluate": {
                     "type": "string"
                   },
@@ -4948,10 +4940,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "expressionToEvaluate": {
             "type": "string"
           },
@@ -4981,10 +4969,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Now",
@@ -5009,10 +4993,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5039,10 +5019,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Now",
@@ -5067,10 +5043,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5104,10 +5076,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Today",
@@ -5139,10 +5107,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5176,10 +5140,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Today",
@@ -5211,10 +5171,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5248,10 +5204,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Today",
@@ -5283,10 +5235,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5320,10 +5268,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Today",
@@ -5355,10 +5299,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5392,10 +5332,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Today",
@@ -5427,10 +5363,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5464,10 +5396,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "enum": [
               "Today",
@@ -5499,10 +5427,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5536,10 +5460,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "const": "Map item with same index"
           },
@@ -5571,10 +5491,6 @@
           "isExecutedOnClient": {
             "type": "boolean"
           },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
-          },
           "type": {
             "const": "Append value(s)"
           },
@@ -5594,10 +5510,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -5622,10 +5534,6 @@
           },
           "isExecutedOnClient": {
             "type": "boolean"
-          },
-          "isUnsafe": {
-            "type": "boolean",
-            "description": "Enabled by default for imported bots to prevent code to be executed in preview with priviledged access"
           },
           "type": {
             "enum": [
@@ -12238,6 +12146,9 @@
                 "$ref": "#/components/schemas/SendFeedEvent"
               },
               {
+                "$ref": "#/components/schemas/SendChatMessage"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "credentialsId": {
@@ -12719,6 +12630,47 @@
                 "item": {
                   "enum": [
                     "Event ID"
+                  ],
+                  "type": "string"
+                },
+                "variableId": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "SendChatMessage": {
+        "type": "object",
+        "properties": {
+          "credentialsId": {
+            "type": "string"
+          },
+          "action": {
+            "const": "Send Chat Message"
+          },
+          "userIds": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "unfurlLinks": {
+            "type": "boolean"
+          },
+          "responseMapping": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "enum": [
+                    "Sent count",
+                    "Failed user IDs"
                   ],
                   "type": "string"
                 },
@@ -24802,6 +24754,7 @@
                                                       {},
                                                       {},
                                                       {},
+                                                      {},
                                                       {}
                                                     ]
                                                   }
@@ -25225,7 +25178,6 @@
           {
             "name": "timeFilter",
             "in": "query",
-            "required": false,
             "schema": {
               "enum": [
                 "today",
@@ -25245,7 +25197,6 @@
           {
             "name": "timeZone",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             },
@@ -25658,7 +25609,6 @@
           {
             "name": "timeFilter",
             "in": "query",
-            "required": false,
             "schema": {
               "enum": [
                 "today",
@@ -25678,7 +25628,6 @@
           {
             "name": "timeZone",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             },
@@ -26111,7 +26060,6 @@
                     ]
                   }
                 },
-                "required": [],
                 "additionalProperties": false
               }
             }
@@ -27309,142 +27257,205 @@
                   "type": "object",
                   "properties": {
                     "workspace": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "format": "date-time",
-                          "x-native-type": "date"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "format": "date-time",
-                          "x-native-type": "date"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "icon": {
-                          "anyOf": [
-                            {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
                               "type": "string"
                             },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "plan": {
-                          "enum": [
-                            "FREE",
-                            "STARTER",
-                            "PRO",
-                            "LIFETIME",
-                            "OFFERED",
-                            "CUSTOM",
-                            "UNLIMITED",
-                            "ENTERPRISE"
-                          ],
-                          "type": "string"
-                        },
-                        "stripeId": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "settings": {
-                          "anyOf": [
-                            {
-                              "type": "object"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "customChatsLimit": {
-                          "anyOf": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "customSeatsLimit": {
-                          "anyOf": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "isSuspended": {
-                          "type": "boolean"
-                        },
-                        "isPastDue": {
-                          "type": "boolean"
-                        },
-                        "isVerified": {
-                          "anyOf": [
-                            {
-                              "type": "boolean"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "chatsHardLimit": {
-                          "anyOf": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "lastActivityAt": {
-                          "anyOf": [
-                            {
+                            "createdAt": {
                               "type": "string",
                               "format": "date-time",
                               "x-native-type": "date"
                             },
-                            {
-                              "type": "null"
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time",
+                              "x-native-type": "date"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "icon": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "plan": {
+                              "enum": [
+                                "FREE",
+                                "STARTER",
+                                "PRO",
+                                "LIFETIME",
+                                "OFFERED",
+                                "CUSTOM",
+                                "UNLIMITED",
+                                "ENTERPRISE"
+                              ],
+                              "type": "string"
+                            },
+                            "stripeId": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "settings": {
+                              "anyOf": [
+                                {
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "customChatsLimit": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "customSeatsLimit": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "isSuspended": {
+                              "type": "boolean"
+                            },
+                            "isPastDue": {
+                              "type": "boolean"
+                            },
+                            "isVerified": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "chatsHardLimit": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "lastActivityAt": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "x-native-type": "date"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
                             }
+                          },
+                          "required": [
+                            "id",
+                            "createdAt",
+                            "updatedAt",
+                            "name",
+                            "icon",
+                            "plan",
+                            "stripeId",
+                            "settings",
+                            "customChatsLimit",
+                            "customSeatsLimit",
+                            "isSuspended",
+                            "isPastDue",
+                            "isVerified",
+                            "chatsHardLimit",
+                            "lastActivityAt"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "icon": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "plan": {
+                              "enum": [
+                                "FREE",
+                                "STARTER",
+                                "PRO",
+                                "LIFETIME",
+                                "OFFERED",
+                                "CUSTOM",
+                                "UNLIMITED",
+                                "ENTERPRISE"
+                              ],
+                              "type": "string"
+                            },
+                            "isSuspended": {
+                              "type": "boolean"
+                            },
+                            "isPastDue": {
+                              "type": "boolean"
+                            },
+                            "isVerified": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "icon",
+                            "plan",
+                            "isSuspended",
+                            "isPastDue",
+                            "isVerified"
                           ]
                         }
-                      },
-                      "required": [
-                        "id",
-                        "createdAt",
-                        "updatedAt",
-                        "name",
-                        "icon",
-                        "plan",
-                        "stripeId",
-                        "settings",
-                        "customChatsLimit",
-                        "customSeatsLimit",
-                        "isSuspended",
-                        "isPastDue",
-                        "isVerified",
-                        "chatsHardLimit",
-                        "lastActivityAt"
                       ]
                     },
                     "currentUserMode": {
@@ -27801,8 +27812,7 @@
                   "icon": {
                     "type": "string"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -28169,18 +28179,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -32885,6 +32883,9 @@
                                                   ]
                                                 },
                                                 {
+                                                  "$ref": "#/components/schemas/SendChatMessage"
+                                                },
+                                                {
                                                   "type": "object",
                                                   "properties": {
                                                     "credentialsId": {
@@ -34535,7 +34536,6 @@
           {
             "name": "migrateToLatestVersion",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "boolean",
               "default": false,
@@ -35879,6 +35879,9 @@
                                                         "pushNotification": {},
                                                         "responseMapping": {}
                                                       }
+                                                    },
+                                                    {
+                                                      "$ref": "#/components/schemas/SendChatMessage"
                                                     },
                                                     {
                                                       "type": "object",
@@ -44359,6 +44362,9 @@
                                                   ]
                                                 },
                                                 {
+                                                  "$ref": "#/components/schemas/SendChatMessage"
+                                                },
+                                                {
                                                   "type": "object",
                                                   "properties": {
                                                     "credentialsId": {
@@ -45595,18 +45601,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -45952,18 +45946,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -46330,18 +46312,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -46689,7 +46659,6 @@
           {
             "name": "migrateToLatestVersion",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "boolean",
               "default": false,
@@ -47873,6 +47842,9 @@
                                                             "pushNotification": {},
                                                             "responseMapping": {}
                                                           }
+                                                        },
+                                                        {
+                                                          "$ref": "#/components/schemas/SendChatMessage"
                                                         },
                                                         {
                                                           "type": "object",
@@ -54156,9 +54128,6 @@
                   },
                   "fromTemplate": {
                     "type": "string"
-                  },
-                  "enableSafetyFlags": {
-                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -56202,6 +56171,9 @@
                                                   "required": [
                                                     "action"
                                                   ]
+                                                },
+                                                {
+                                                  "$ref": "#/components/schemas/SendChatMessage"
                                                 },
                                                 {
                                                   "type": "object",
@@ -58561,18 +58533,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -58931,7 +58891,6 @@
           {
             "name": "limit",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "number",
               "minimum": 1,
@@ -58944,7 +58903,6 @@
           {
             "name": "cursor",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "number"
             },
@@ -58954,7 +58912,6 @@
           {
             "name": "timeFilter",
             "in": "query",
-            "required": false,
             "schema": {
               "enum": [
                 "today",
@@ -58974,7 +58931,6 @@
           {
             "name": "timeZone",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             },
@@ -59472,8 +59428,7 @@
                     "type": "string",
                     "description": "Comma separated list of ids. If not provided, all results will be deleted. ⚠️"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -67437,13 +67392,7 @@
                 "required": true
               }
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "not": {}
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "400",
@@ -67791,13 +67740,7 @@
                 "required": true
               }
             },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "not": {}
-                }
-              }
-            }
+            "content": {}
           },
           "400": {
             "description": "400",
@@ -72159,18 +72102,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -72850,11 +72781,7 @@
       "post": {
         "operationId": "httpRequestSpecMocks.mirrorBody",
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {
@@ -75078,8 +75005,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -75963,7 +75889,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -76086,7 +76013,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -76249,7 +76177,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -76626,6 +76555,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -76634,7 +76569,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -77023,7 +76960,7 @@
                 "properties": {
                   "sessionId": {
                     "type": "string",
-                    "description": "If provided, will be used as the session ID and will overwrite any existing session with the same ID."
+                    "description": "Deprecated and ignored. Preview creation always returns a new session ID. Use the returned sessionId to continue the conversation; existing sessions are never replaced."
                   },
                   "startFrom": {
                     "anyOf": [
@@ -77155,8 +77092,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -77169,6 +77105,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "previewWebhookRoom": {
+                      "type": "string",
+                      "description": "Webhook channel for a preview, independent of its session ID."
+                    },
                     "sessionId": {
                       "type": "string",
                       "description": "To save and use for /continueChat requests."
@@ -78621,7 +78561,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -78744,7 +78685,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -78907,7 +78849,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -79284,6 +79227,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -79292,7 +79241,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -79682,7 +79633,7 @@
                 "properties": {
                   "sessionId": {
                     "type": "string",
-                    "description": "If provided, will be used as the session ID and will overwrite any existing session with the same ID."
+                    "description": "Deprecated and ignored. Preview creation always returns a new session ID. Use the returned sessionId to continue the conversation; existing sessions are never replaced."
                   },
                   "startFrom": {
                     "anyOf": [
@@ -79810,8 +79761,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -79824,6 +79774,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "previewWebhookRoom": {
+                      "type": "string",
+                      "description": "Webhook channel for a preview, independent of its session ID."
+                    },
                     "sessionId": {
                       "type": "string",
                       "description": "To save and use for /continueChat requests."
@@ -81276,7 +81230,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -81399,7 +81354,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -81562,7 +81518,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -81939,6 +81896,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -81947,7 +81910,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -82330,7 +82295,6 @@
           {
             "name": "clientId",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             },
@@ -82340,7 +82304,6 @@
           {
             "name": "state",
             "in": "query",
-            "required": false,
             "schema": {
               "type": "string"
             },

@@ -183,8 +183,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -197,6 +196,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "previewWebhookRoom": {
+                      "type": "string",
+                      "description": "Webhook channel for a preview, independent of its session ID."
+                    },
                     "sessionId": {
                       "type": "string",
                       "description": "To save and use for /continueChat requests."
@@ -2530,7 +2533,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -2653,7 +2657,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -2816,7 +2821,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -3244,6 +3250,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -3252,7 +3264,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -3668,8 +3682,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -5420,7 +5433,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -5543,7 +5557,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -5706,7 +5721,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -6134,6 +6150,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -6142,7 +6164,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -6908,7 +6932,7 @@
                 "properties": {
                   "sessionId": {
                     "type": "string",
-                    "description": "If provided, will be used as the session ID and will overwrite any existing session with the same ID."
+                    "description": "Deprecated and ignored. Preview creation always returns a new session ID. Use the returned sessionId to continue the conversation; existing sessions are never replaced."
                   },
                   "startFrom": {
                     "anyOf": [
@@ -6964,8 +6988,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -6978,6 +7001,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "previewWebhookRoom": {
+                      "type": "string",
+                      "description": "Webhook channel for a preview, independent of its session ID."
+                    },
                     "sessionId": {
                       "type": "string",
                       "description": "To save and use for /continueChat requests."
@@ -9308,7 +9335,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -9431,7 +9459,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -9594,7 +9623,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -10022,6 +10052,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -10030,7 +10066,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -10425,7 +10463,7 @@
                 "properties": {
                   "sessionId": {
                     "type": "string",
-                    "description": "If provided, will be used as the session ID and will overwrite any existing session with the same ID."
+                    "description": "Deprecated and ignored. Preview creation always returns a new session ID. Use the returned sessionId to continue the conversation; existing sessions are never replaced."
                   },
                   "startFrom": {
                     "anyOf": [
@@ -10477,8 +10515,7 @@
                     "type": "string",
                     "default": "richText"
                   }
-                },
-                "required": []
+                }
               }
             }
           }
@@ -10491,6 +10528,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "previewWebhookRoom": {
+                      "type": "string",
+                      "description": "Webhook channel for a preview, independent of its session ID."
+                    },
                     "sessionId": {
                       "type": "string",
                       "description": "To save and use for /continueChat requests."
@@ -12821,7 +12862,8 @@
                                     "type": "string"
                                   },
                                   "isUnsafe": {
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                   },
                                   "isCode": {
                                     "type": "boolean"
@@ -12944,7 +12986,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -13107,7 +13150,8 @@
                                         "type": "string"
                                       },
                                       "isUnsafe": {
-                                        "type": "boolean"
+                                        "type": "boolean",
+                                        "description": "Deprecated compatibility field. Servers emit true so older preview clients keep using their sandbox. Current clients ignore this field."
                                       },
                                       "isCode": {
                                         "type": "boolean"
@@ -13535,6 +13579,12 @@
                               "type": {
                                 "const": "listenForWebhook"
                               },
+                              "room": {
+                                "type": "string"
+                              },
+                              "token": {
+                                "type": "string"
+                              },
                               "lastBubbleBlockId": {
                                 "type": "string"
                               },
@@ -13543,7 +13593,9 @@
                               }
                             },
                             "required": [
-                              "type"
+                              "type",
+                              "room",
+                              "token"
                             ]
                           }
                         ]
@@ -13929,18 +13981,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -16339,11 +16379,7 @@
         ],
         "requestBody": {
           "required": false,
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {
@@ -16700,11 +16736,7 @@
         ],
         "requestBody": {
           "required": false,
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {
@@ -17069,11 +17101,7 @@
         ],
         "requestBody": {
           "required": false,
-          "content": {
-            "application/json": {
-              "schema": {}
-            }
-          }
+          "content": {}
         },
         "responses": {
           "200": {

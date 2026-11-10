@@ -29,6 +29,8 @@ Parameters marked with <span style={{color: '#ef5151'}}>\*</span> are required.
 | NEXT_PUBLIC_BOT_FILE_UPLOAD_MAX_SIZE                              |         | Limits the size of each file that can be uploaded in the bots (i.e. Set `10` to limit the file upload to 10MB)                                                                                                            |
 | CHAT_API_TIMEOUT                                                  |         | The chat API execution timeout (in ms). It limits the chat API exection time. Useful to avoid getting stuck into an unwanted infinite loop. Note that it does not apply to known long-running blocks like OpenAI or else. |
 
+For previews, the first URL in `NEXT_PUBLIC_VIEWER_URL` must use a different hostname from `NEXTAUTH_URL`. A different port is not enough because browser cookies ignore ports. For example, locally use `NEXTAUTH_URL=http://localhost:3000` and `NEXT_PUBLIC_VIEWER_URL=http://127.0.0.1:3001`.
+
 ## Email (Auth, notifications)
 
 Used for sending email notifications and authentication
@@ -43,6 +45,12 @@ Used for sending email notifications and authentication
 | SMTP_SECURE           | false     | If true the connection will use TLS when connecting to server. If false (the default) then TLS is used if server supports the STARTTLS extension. In most cases set this value to true if you are connecting to port 465. For port 587 or 25 keep it false |
 | SMTP_IGNORE_TLS       | undefined | If true and SMTP_SECURE is false then TLS is not used while connecting to server even if server supports STARTTLS extension.                                                                                                                               |
 | SMTP_AUTH_DISABLED    | false     | To disable the authentication by email but still use the provided config for notifications                                                                                                                                                                 |
+
+## SMTP configuration tests in the builder
+
+The Send Email block's SMTP configuration test permits public SMTP destinations by default. To permit an internal IPv4 SMTP relay, add its exact hostname to `SSRF_ALLOWED_HOSTS` (comma-separated), for example `SSRF_ALLOWED_HOSTS=smtp.internal.example`. This existing setting only permits RFC1918 ranges (10/8, 172.16/12 and 192.168/16, including IPv4-mapped addresses). It never permits metadata, loopback, link-local, IPv6 unique-local or other blocked special-use destinations, even in development. This instance-wide exception makes that relay available to every authenticated user who can test an SMTP configuration; it is not a workspace permission.
+
+Every DNS answer must pass the policy. The test connects to the first validated IP, preserving the hostname for TLS certificate verification and STARTTLS. Automatic fallback to another IP is disabled; if the first address is unreachable, the test fails. Use an ASCII/punycode hostname or an IP literal and an integer port between 1 and 65535. The notification/authentication SMTP settings above and execution of stored Send Email credentials are separate paths and are unchanged by this test endpoint policy.
 
 ## Google Auth
 
@@ -216,13 +224,15 @@ Your provider needs to support the [OpenID Connect](https://openid.net/connect/)
 | CUSTOM_OAUTH_ISSUER <span style={{color: '#ef5151'}}>\*</span>        |                                                        | OAuth issuer URL (i.e. `https://auth.domain.com/openid`) |
 | CUSTOM_OAUTH_NAME                                                     | Custom OAuth                                           | Provider name. Will be displayed in the sign in form.    |
 | CUSTOM_OAUTH_WELL_KNOWN_URL                                           | `CUSTOM_OAUTH_ISSUER`/.well-known/openid-configuration | Provider .well-known URL                                 |
-| CUSTOM_OAUTH_USER_ID_PATH                                             | id                                                     | Used to map the id from the user info object             |
-| CUSTOM_OAUTH_USER_NAME_PATH                                           | name                                                   | Used to map the name from the user info object           |
-| CUSTOM_OAUTH_USER_EMAIL_PATH                                          | email                                                  | Used to map the email from the user info object          |
-| CUSTOM_OAUTH_USER_IMAGE_PATH                                          | image                                                  | Used to map the image from the user info object          |
+| CUSTOM_OAUTH_USER_ID_PATH                                             | id                                                     | Claim path used to map the user ID                       |
+| CUSTOM_OAUTH_USER_NAME_PATH                                           | name                                                   | Claim path used to map the user name                     |
+| CUSTOM_OAUTH_USER_EMAIL_PATH                                          | email                                                  | Claim path used to map the user email                    |
+| CUSTOM_OAUTH_USER_IMAGE_PATH                                          | image                                                  | Claim path used to map the user image                    |
 | CUSTOM_OAUTH_SCOPE                                                    | openid profile email                                   | OAuth scope                                              |
+| CUSTOM_OAUTH_USE_USERINFO                                             | false                                                  | Use the provider's UserInfo endpoint for profile claims  |
 
 For `*_PATH` parameters, you can use dot notation to access nested properties (i.e. `account.name`).
+By default, profile claims come from the ID Token. Set `CUSTOM_OAUTH_USE_USERINFO=true` to use UserInfo instead. This changes the claim source used by the configured `*_PATH` values; claims are not merged.
 
 The Authorization callback URL should be: `$NEXTAUTH_URL/api/auth/callback/custom-oauth`
 
@@ -355,11 +365,14 @@ In Typebot, Redis is optional and is used to:
 
 ## PartyKit
 
-PartyKit is optional and is used to make the webhook block work. The PartyKit configuration is located in `packages/partykit` folder. You can deploy the server into production using `bun deploy`. You can find more information about PartyKit deployment in their [official documentation](https://docs.partykit.io/guides/deploying-your-partykit-server/).
+PartyKit is optional and is used to make the webhook block work. The relay is a [PartyServer](https://github.com/cloudflare/partykit/tree/main/packages/partyserver) Worker located in the `packages/partykit` folder and configured by its `wrangler.jsonc`. Set its secret with `bunx wrangler secret put WEBHOOK_RELAY_SECRET`, then deploy it to your Cloudflare account with `bunx wrangler deploy --domain <your-domain>` from that folder.
+
+If you previously deployed it with `partykit deploy` to your own Cloudflare account, deploy with `bunx wrangler deploy --env partykit --domain <your-domain>` instead. It reuses the same Worker, Durable Object class, rooms and the `WEBHOOK_RELAY_SECRET` set with `partykit env`. Hosted `*.partykit.dev` projects can't be reused: deploy a new Worker and update `NEXT_PUBLIC_PARTYKIT_HOST`.
 
 | Parameter                 | Default | Description                               |
 | ------------------------- | ------- | ----------------------------------------- |
 | NEXT_PUBLIC_PARTYKIT_HOST |         | PartyKit host. i.e. `partykit.typebot.io` |
+| WEBHOOK_RELAY_SECRET | | Required for Webhook blocks, including previews and WhatsApp. Use the same server-only secret in builder, viewer and PartyKit, generated from at least 32 random bytes. See the [upgrade instructions](https://github.com/baptisteArno/typebot.io/blob/main/CHANGELOG.md#webhook-signing-secret-and-coordinated-upgrade). |
 
 ## Others
 

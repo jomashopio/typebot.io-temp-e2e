@@ -1,9 +1,29 @@
+import { sanitizeRedirectPath } from "@typebot.io/auth/helpers/sanitizeRedirectPath";
+import { env } from "@typebot.io/env";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isSameOriginRequest } from "./features/auth/helpers/isSameOriginRequest";
 
 const disallowedMethods = new Set(["OPTIONS", "TRACE", "TRACK"]);
 
 export function proxy(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith("/api/")) {
+    // Auth.js validates CSRF tokens and OAuth state itself and needs cookies on
+    // cross-origin provider callbacks. Application APIs must not inherit them.
+    if (
+      req.nextUrl.pathname.startsWith("/api/auth/") ||
+      // This callback checks a signed, expiring state bound to the signed-in
+      // user and an HttpOnly nonce cookie before changing any credentials.
+      (req.method === "GET" &&
+        req.nextUrl.pathname === "/api/credentials/google-sheets/callback")
+    )
+      return NextResponse.next();
+    const headers = new Headers(req.headers);
+    if (!isSameOriginRequest(headers, env.NEXTAUTH_URL))
+      headers.delete("cookie");
+    return NextResponse.next({ request: { headers } });
+  }
+
   if (disallowedMethods.has(req.method))
     return new NextResponse(null, {
       status: 405,
@@ -35,32 +55,23 @@ export function proxy(req: NextRequest) {
     const redirectPath = sanitizeRedirectPath(
       searchParams.get("redirectPath") ??
         (callbackUrl
-          ? new URL(callbackUrl).searchParams.get("redirectPath")
+          ? getCallbackRedirectPath(callbackUrl, req.url)
           : undefined),
     );
     if (!redirectPath) return NextResponse.next();
     const url = req.nextUrl.clone();
-    url.pathname = redirectPath;
-    url.searchParams.delete("callbackUrl");
-    url.searchParams.delete("redirectPath");
+    const destination = new URL(redirectPath, req.url);
+    url.pathname = destination.pathname;
+    url.search = destination.search;
+    url.hash = destination.hash;
     return NextResponse.redirect(url);
   }
   return NextResponse.next();
 }
 
-function sanitizeRedirectPath(
-  redirectPath: string | null | undefined,
-): string | null {
-  if (!redirectPath) return null;
-
+function getCallbackRedirectPath(callbackUrl: string, baseUrl: string) {
   try {
-    // Prevent absolute URLs
-    const url = new URL(redirectPath, "http://dummy"); // base needed for parsing
-    if (url.origin !== "http://dummy") return null; // absolute external URL → reject
-
-    const safePath = url.pathname + url.search + url.hash;
-
-    return safePath;
+    return new URL(callbackUrl, baseUrl).searchParams.get("redirectPath");
   } catch {
     return null;
   }
@@ -68,6 +79,7 @@ function sanitizeRedirectPath(
 
 export const config = {
   matcher: [
+    "/api/:path*",
     "/",
     "/typebots",
     "/signin",

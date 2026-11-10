@@ -63,10 +63,11 @@ type ImportingTypebot = z.infer<typeof importingTypebotSchema>;
 
 const migrateImportingTypebot = async (
   typebot: ImportingTypebot,
+  newTypebotId: string,
 ): Promise<TypebotV6> => {
   const fullTypebot = {
     ...typebot,
-    id: "dummy id",
+    id: newTypebotId,
     workspaceId: "dummy workspace id",
     resultsTablePreferences: typebot.resultsTablePreferences ?? null,
     selectedThemeTemplateId: typebot.selectedThemeTemplateId ?? null,
@@ -106,21 +107,13 @@ export const importTypebotInputSchema = z
     templateSlug: z.string().optional(),
     folderId: z.string().nullable().optional(),
     fromTemplate: z.string().optional(),
-    enableSafetyFlags: z.boolean().optional(),
   })
   .refine(({ typebot, templateSlug }) => typebot || templateSlug, {
     message: "Either typebot or templateSlug is required",
   });
 
 export const handleImportTypebot = async ({
-  input: {
-    typebot,
-    workspaceId,
-    templateSlug,
-    folderId,
-    fromTemplate,
-    enableSafetyFlags,
-  },
+  input: { typebot, workspaceId, templateSlug, folderId, fromTemplate },
   context: { user },
 }: {
   input: z.infer<typeof importTypebotInputSchema>;
@@ -159,13 +152,13 @@ export const handleImportTypebot = async ({
 
   const duplicatingBot = await migrateImportingTypebot(
     newUploadUrlsResponse.typebot,
+    newBotId,
   );
 
   const groups = (
     duplicatingBot.groups
       ? await sanitizeGroups(duplicatingBot.groups, {
           workspace,
-          enableSafetyFlags,
         })
       : []
   ) as TypebotV6["groups"];

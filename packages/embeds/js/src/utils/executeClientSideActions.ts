@@ -51,7 +51,9 @@ export const executeClientSideAction = async ({
     });
   }
   if ("redirect" in clientSideAction) {
-    return executeRedirect(clientSideAction.redirect);
+    return executeRedirect(clientSideAction.redirect, {
+      isPreview: context.isPreview,
+    });
   }
   if ("wait" in clientSideAction) {
     await executeWait(clientSideAction.wait);
@@ -109,8 +111,8 @@ export const executeClientSideAction = async ({
   }
   if (clientSideAction.type === "listenForWebhook") {
     return listenForWebhook({
-      sessionId: context.sessionId,
-      resultId: context.resultId,
+      room: clientSideAction.room,
+      token: clientSideAction.token,
       context,
     });
   }

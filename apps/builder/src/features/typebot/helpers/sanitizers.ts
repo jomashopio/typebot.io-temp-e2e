@@ -1,3 +1,4 @@
+import { ORPCError } from "@orpc/server";
 import { isInputBlock } from "@typebot.io/blocks-core/helpers";
 import type { Block } from "@typebot.io/blocks-core/schemas/schema";
 import { IntegrationBlockType } from "@typebot.io/blocks-integrations/constants";
@@ -42,54 +43,50 @@ export const sanitizeSettings = (
 export const sanitizeGroups = async (
   groups: Typebot["groups"],
   {
-    enableSafetyFlags,
     workspace,
+    typebotId,
   }: {
-    enableSafetyFlags?: boolean;
+    // The authorized existing bot ID; new bots cannot reuse legacy rows.
+    typebotId?: string;
     workspace: Pick<Workspace, "id" | "plan">;
   },
-): Promise<Typebot["groups"]> =>
-  Promise.all(
+): Promise<Typebot["groups"]> => {
+  const webhookIds = groups.flatMap((group) =>
+    group.blocks.flatMap((block) =>
+      "webhookId" in block && block.webhookId ? [block.webhookId] : [],
+    ),
+  );
+  if (webhookIds.length > 0) {
+    const ownedWebhooks = typebotId
+      ? await prisma.webhook.findMany({
+          where: { id: { in: webhookIds }, typebotId },
+          select: { id: true },
+        })
+      : [];
+    if (
+      webhookIds.some(
+        (id) => !ownedWebhooks.some((webhook) => webhook.id === id),
+      )
+    )
+      throw new ORPCError("BAD_REQUEST", {
+        message: "Invalid legacy webhook reference",
+      });
+  }
+  return Promise.all(
     groups.map(async (group) => ({
       ...group,
       blocks: await Promise.all(
-        group.blocks.map((block) =>
-          sanitizeBlock(block, { enableSafetyFlags, workspace }),
-        ),
+        group.blocks.map((block) => sanitizeBlock(block, { workspace })),
       ),
     })),
   ) as Promise<Typebot["groups"]>;
+};
 
 const sanitizeBlock = async (
   block: Block,
-  {
-    enableSafetyFlags,
-    workspace,
-  }: { enableSafetyFlags?: boolean; workspace: Pick<Workspace, "id" | "plan"> },
+  { workspace }: { workspace: Pick<Workspace, "id" | "plan"> },
 ): Promise<Block> => {
   if (!("options" in block) || !block.options) return block;
-
-  if (enableSafetyFlags && block.type === LogicBlockType.SCRIPT) {
-    return {
-      ...block,
-      options: {
-        ...block.options,
-        isUnsafe:
-          block.options.isExecutedOnClient === true ||
-          block.options.isExecutedOnClient === undefined,
-      },
-    };
-  }
-
-  if (enableSafetyFlags && block.type === LogicBlockType.SET_VARIABLE) {
-    return {
-      ...block,
-      options: {
-        ...block.options,
-        isUnsafe: block.options.isExecutedOnClient === true,
-      },
-    };
-  }
 
   switch (block.type) {
     case IntegrationBlockType.EMAIL:
