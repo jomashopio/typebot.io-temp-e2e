@@ -82,7 +82,7 @@ COPY --from=runtime-env-dependencies /runtime/node_modules ./node_modules
 
 
 COPY scripts/${SCOPE}-entrypoint.sh ./
-RUN chmod +x ./${SCOPE}-entrypoint.sh
+RUN sed -i 's/\r$//' ./${SCOPE}-entrypoint.sh && chmod +x ./${SCOPE}-entrypoint.sh
 USER node
 ENTRYPOINT ./${SCOPE}-entrypoint.sh
 
